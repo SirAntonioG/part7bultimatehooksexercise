@@ -25,9 +25,11 @@ export const useResource = (baseUrl) => {
   }, [baseUrl]);
 
   const create = async (resource) => {
-    const res = await axios.post(baseUrl, resource);
+    const res = await axios.post(baseUrl, resource).then((res) => {
+      setResources(resources.concat(res.data));
+    });
 
-    return res.data;
+    return res;
   };
 
   const service = {
